@@ -606,6 +606,7 @@ def _recover_ignore_index(input, orig, ignore_index):
 
 
 class Segmentation2Affinities3D:
+    # TODO broken do not use, deprecated
     def __init__(self, offset=(1, ), scale=(1, 1, 1), **kwargs):
         """
         Generates z, x, y affinities from 3D segmentation
