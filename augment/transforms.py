@@ -660,8 +660,7 @@ class Segmentation2Affinities3D:
 
             mask = nn.functional.conv3d(segmentation_pad.float(),
                                         self.kernel,
-                                        dilation=effective_offset,
-                                        padding=effective_offset)
+                                        dilation=effective_offset)
 
             labels[i * 3:i * 3 + 3] = ~(torch.abs(mask) < 1)
         return labels.float()
