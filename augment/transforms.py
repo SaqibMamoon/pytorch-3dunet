@@ -607,13 +607,14 @@ def _recover_ignore_index(input, orig, ignore_index):
 
 class Segmentation2Affinities3D:
     # TODO broken do not use, deprecated
-    def __init__(self, offset=(1, ), scale=(1, 1, 1), **kwargs):
+    def __init__(self, offset=(1, ), scale=(1, 1, 1), append_label=False, **kwargs):
         """
         Generates z, x, y affinities from 3D segmentation
         """
         super(Segmentation2Affinities3D, self).__init__()
         self.offset = offset
         self.scale  = np.array(scale)
+        self.append_label = append_label
         self._build_kernel()
 
     def _build_kernel(self):
@@ -663,6 +664,10 @@ class Segmentation2Affinities3D:
                                         dilation=effective_offset)
 
             labels[i * 3:i * 3 + 3] = ~(torch.abs(mask) < 1)
+
+        if self.append_label:
+            labels = torch.cat([labels, segmentation[0]], dim=0)
+
         return labels.float()
 
 
