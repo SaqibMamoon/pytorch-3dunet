@@ -4,7 +4,6 @@ from torch import nn as nn
 from torch.autograd import Variable
 from torch.nn import MSELoss, SmoothL1Loss, L1Loss
 
-from embeddings.contrastive_loss import ContrastiveLoss
 from unet3d.utils import expand_as_one_hot
 
 
@@ -345,8 +344,5 @@ def get_loss_criterion(config):
         return SmoothL1Loss()
     elif name == 'L1Loss':
         return L1Loss()
-    elif name == 'ContrastiveLoss':
-        return ContrastiveLoss(loss_config['delta_var'], loss_config['delta_dist'], loss_config['norm'],
-                               loss_config['alpha'], loss_config['beta'], loss_config['gamma'])
     else:
         raise RuntimeError(f"Unsupported loss function: '{name}'. Supported losses: {SUPPORTED_LOSSES}")

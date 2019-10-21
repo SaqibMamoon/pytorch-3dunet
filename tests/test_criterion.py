@@ -9,9 +9,7 @@ from augment.transforms import LabelToAffinities, StandardLabelToBoundary
 from unet3d.losses import GeneralizedDiceLoss, WeightedCrossEntropyLoss, BCELossWrapper, \
     DiceLoss, TagsAngularLoss
 from unet3d.metrics import DiceCoefficient, MeanIoU, BoundaryAveragePrecision, AdaptedRandError, \
-    BoundaryAdaptedRandError, EmbeddingsAdaptedRandError
-
-from embeddings.contrastive_loss import ContrastiveLoss
+    BoundaryAdaptedRandError
 
 
 def _compute_criterion(criterion, n_times=100):
@@ -117,14 +115,6 @@ class TestCriterion:
             arand = BoundaryAdaptedRandError(all_stats=True)
             assert arand(pred, label) < 0.5
 
-    def test_adapted_rand_from_embeddings(self):
-        l_file = 'resources/sample_patch.h5'
-        with h5py.File(l_file, 'r') as f:
-            label = f['big_label'][...]
-            pred = np.expand_dims(np.random.rand(*label.shape), axis=0)
-            arand = EmbeddingsAdaptedRandError(min_cluster_size=50)
-            assert arand(pred, label) <= 1.0
-
     def test_generalized_dice_loss(self):
         results = _compute_criterion(GeneralizedDiceLoss())
         # check that all of the coefficients belong to [0, 1]
@@ -214,13 +204,4 @@ class TestCriterion:
         targets = [i / torch.norm(i, p=2, dim=1).clamp(min=1e-8) for i in targets]
 
         loss = loss_criterion(inputs, targets, None)
-        assert loss > 0
-
-    def test_contrastive_loss(self):
-        loss_criterion = ContrastiveLoss(0.5, 1.5)
-        C = 10
-        input = torch.randn(3, 16, 64, 64, 64)
-        target = torch.randint(C, (3, 64, 64, 64))
-
-        loss = loss_criterion(input, target)
         assert loss > 0
