@@ -28,7 +28,6 @@ as well as Residual 3D U-Net based on:
 - scikit-image
 - scikit-learn (0.21+)
 - pytest
-- hdbscan (0.8.22+)
 
 Setup a new conda environment (Python 3.7+) with required dependencies via:
 ```

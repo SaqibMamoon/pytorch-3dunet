@@ -291,57 +291,6 @@ class GenericAdaptedRandError(AdaptedRandError):
         return np.stack(segms)
 
 
-class EmbeddingsAdaptedRandError(AdaptedRandError):
-    def __init__(self, min_cluster_size=100, min_samples=None, metric='euclidean', cluster_selection_method='eom',
-                 save_plots=False, plots_dir='.', **kwargs):
-        super().__init__(save_plots=save_plots, plots_dir=plots_dir, **kwargs)
-
-        LOGGER.info(f'HDBSCAN params: min_cluster_size: {min_cluster_size}, min_samples: {min_samples}')
-        self.clustering = hdbscan.HDBSCAN(min_cluster_size=min_cluster_size, min_samples=min_samples, metric=metric,
-                                          cluster_selection_method=cluster_selection_method)
-
-    def input_to_segm(self, embeddings):
-        LOGGER.info("Computing clusters with HDBSCAN...")
-
-        # shape of the output segmentation
-        output_shape = embeddings.shape[1:]
-        # reshape (C, D, H, W) -> (C, D * H * W) and transpose
-        flattened_embeddings = embeddings.reshape(embeddings.shape[0], -1).transpose()
-
-        # perform clustering and reshape in order to get the segmentation volume
-        start = time.time()
-        segm = self.clustering.fit_predict(flattened_embeddings).reshape(output_shape)
-        LOGGER.info(f'Number of clusters found by HDBSCAN: {np.max(segm)}. Duration: {time.time() - start} sec.')
-
-        # assign noise to new cluster (by default hdbscan gives -1 label to outliers)
-        noise_label = np.max(segm) + 1
-        segm[segm == -1] = noise_label
-
-        return np.expand_dims(segm, axis=0)
-
-
-# Just for completeness, however sklean MeanShift implementation is just too slow for clustering embeddings
-class EmbeddingsMeanShiftAdaptedRandError(AdaptedRandError):
-    def __init__(self, bandwidth, save_plots=False, plots_dir='.', **kwargs):
-        super().__init__(save_plots=save_plots, plots_dir=plots_dir, **kwargs)
-        LOGGER.info(f'MeanShift params: bandwidth: {bandwidth}')
-        self.clustering = MeanShift(bandwidth=bandwidth, bin_seeding=True)
-
-    def input_to_segm(self, embeddings):
-        LOGGER.info("Computing clusters with MeanShift...")
-
-        # shape of the output segmentation
-        output_shape = embeddings.shape[1:]
-        # reshape (C, D, H, W) -> (C, D * H * W) and transpose
-        flattened_embeddings = embeddings.reshape(embeddings.shape[0], -1).transpose()
-
-        # perform clustering and reshape in order to get the segmentation volume
-        start = time.time()
-        segm = self.clustering.fit_predict(flattened_embeddings).reshape(output_shape)
-        LOGGER.info(f'Number of clusters found by MeanShift: {np.max(segm)}. Duration: {time.time() - start} sec.')
-        return np.expand_dims(segm, axis=0)
-
-
 class _AbstractAP:
     def __init__(self, iou_range=(0.5, 1.0), ignore_index=-1, min_instance_size=None):
         self.iou_range = iou_range
