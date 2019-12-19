@@ -16,9 +16,7 @@ model:
   final_sigmoid: true
 # loss function to be used during training
 loss:
-  name: BCEWithLogitsLoss
-  # a target value that is ignored and does not contribute to the input gradient
-  ignore_index: null
+  name: DiceLoss
   # skip the last channel in the target (i.e. when last channel contains data not relevant for the loss)
   skip_last_target: true
 optimizer:
@@ -46,7 +44,7 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/normalization/unet_ds2x_bce_gcr'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/dice/unet_ds2x_dice_gcr'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations

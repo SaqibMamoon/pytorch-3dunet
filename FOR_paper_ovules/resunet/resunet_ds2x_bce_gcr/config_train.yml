@@ -1,7 +1,7 @@
 # use a fixed random seed to guarantee that when you run the code twice you will get the same outcome
 manual_seed: 0
 model:
-  name: UNet3D
+  name: ResidualUNet3D
   # number of input channels to the model
   in_channels: 1
   # number of output channels
@@ -9,7 +9,7 @@ model:
   # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
   layer_order: gcr
   # initial number of feature maps
-  f_maps: 32
+  f_maps: [32, 64, 128, 256]
   # number of groups in the groupnorm
   num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
@@ -46,7 +46,7 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/normalization/unet_ds2x_bce_gcr'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/resunet/resunet_ds2x_bce_gcr'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
@@ -61,9 +61,9 @@ loaders:
   train_slice_builder: FilterSliceBuilder
   val_slice_builder: FilterSliceBuilder
    # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-  train_patch: [80, 170, 170]
+  train_patch: [80, 144, 144]
   # train stride between patches (make sure that the training patches overlap)
-  train_stride: [20, 40, 40]
+  train_stride: [25, 45, 45]
   # validation patch (can be bigger than train patch since there is no backprop)
   val_patch: [96, 192, 192]
   # validation stride (validation patches doesn't need to overlap)
@@ -162,3 +162,4 @@ loaders:
           sigma: 1.0
         - name: ToTensor
           expand_dims: false
+

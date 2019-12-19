@@ -46,7 +46,7 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/normalization/unet_ds2x_bce_gcr'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/augmentation/unet_ds2x_bce_gcr_noise'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
@@ -131,6 +131,10 @@ loaders:
           axes: [[2, 1]]
           angle_spectrum: 15
           mode: reflect
+        - name: AdditiveGaussianNoise
+          execution_probability: 0.25
+        - name: AdditivePoissonNoise
+          execution_probability: 0.25
         - name: ToTensor
           expand_dims: true
       label:

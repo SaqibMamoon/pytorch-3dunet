@@ -41,7 +41,7 @@ lr_scheduler:
   # make sure to use the 'min' mode cause lower AdaptedRandError is better
   mode: min
   factor: 0.5
-  patience: 50
+  patience: 30
 trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
