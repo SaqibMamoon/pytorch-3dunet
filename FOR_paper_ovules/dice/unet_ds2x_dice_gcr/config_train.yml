@@ -54,7 +54,7 @@ trainer:
   # max number of epochs
   epochs: 1000
   # max number of iterations
-  iters: 75000
+  iters: 80000
 loaders:
   train_slice_builder: FilterSliceBuilder
   val_slice_builder: FilterSliceBuilder

@@ -56,7 +56,7 @@ trainer:
   # max number of epochs
   epochs: 1000
   # max number of iterations
-  iters: 75000
+  iters: 80000
 loaders:
   # increase the batch size for bachnorm
   batch_size: 4
