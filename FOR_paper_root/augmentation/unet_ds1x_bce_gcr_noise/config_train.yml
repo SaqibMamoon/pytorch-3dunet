@@ -1,0 +1,159 @@
+# use a fixed random seed to guarantee that when you run the code twice you will get the same outcome
+manual_seed: 0
+model:
+  name: UNet3D
+  # number of input channels to the model
+  in_channels: 1
+  # number of output channels
+  out_channels: 1
+  # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
+  layer_order: gcr
+  # initial number of feature maps
+  f_maps: 32
+  # number of groups in the groupnorm
+  num_groups: 8
+  # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
+  final_sigmoid: true
+# loss function to be used during training
+loss:
+  name: BCEWithLogitsLoss
+  # a target value that is ignored and does not contribute to the input gradient
+  ignore_index: null
+  # skip the last channel in the target (i.e. when last channel contains data not relevant for the loss)
+  skip_last_target: true
+optimizer:
+  # initial learning rate
+  learning_rate: 0.0002
+  # weight decay
+  weight_decay: 0.00001
+# evaluation metric
+eval_metric:
+  # use AdaptedRandError metric
+  name: BoundaryAdaptedRandError
+  # probability maps threshold
+  threshold: 0.4
+  # use the last target channel to compute the metric
+  use_last_target: true
+  # use only the first channel for computing the metric
+  use_first_input: true
+lr_scheduler:
+  name: ReduceLROnPlateau
+  # make sure to use the 'min' mode cause lower AdaptedRandError is better
+  mode: min
+  factor: 0.5
+  patience: 30
+trainer:
+  # model with lower eval score is considered better
+  eval_score_higher_is_better: False
+  # path to the checkpoint directory
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_root/augmentation/unet_ds1x_bce_gcr_noise'
+  # path to latest checkpoint; if provided the training will be resumed from that checkpoint
+  resume: null
+  # how many iterations between validations
+  validate_after_iters: 500
+  # how many iterations between tensorboard logging
+  log_after_iters: 100
+  # max number of epochs
+  epochs: 1000
+  # max number of iterations
+  iters: 80000
+loaders:
+  train_slice_builder: FilterSliceBuilder
+  val_slice_builder: FilterSliceBuilder
+   # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
+  train_patch: [80, 170, 170]
+  # train stride between patches (make sure that the training patches overlap)
+  train_stride: [20, 40, 40]
+  # validation patch (can be bigger than train patch since there is no backprop)
+  val_patch: [96, 192, 192]
+  # validation stride (validation patches doesn't need to overlap)
+  val_stride: [96, 192, 192]
+  # path to the raw data within the H5
+  raw_internal_path: /raw
+  # path to the the label data withtin the H5
+  label_internal_path: /label
+  # paths to the training datasets
+  train_path:
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00003_s00_uint8_gt_cropped_final.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00009_s00_uint8_gt_cropped_final.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00025_s00_uint8_gt_cropped_final.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00035_s00_uint8_gt_cropped_final.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00040_s00_uint8_gt_cropped_final.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00049_s00_uint8_gt_cropped_final.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00000_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00002_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00006_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00008_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00010_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00012_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00014_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00016_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00018_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00020_crop_x420_y620_gt.h5'
+    # Beautiful
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00000_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00002_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00004_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00006_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00008_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00012_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00014_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00016_crop_x40-1630_y520-970_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00018_crop_x40-1630_y520-970_gt.h5'
+    # Nice
+    - '/g/kreshuk/wolny/Datasets/Nice/GT_Amaya/Nice_T00000_crop_x410-1580_y430-790_z200-390_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Nice/GT_Amaya/Nice_T00002_crop_x410-1580_y430-790_z200-390_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Nice/GT_Amaya/Nice_T00004_crop_x410-1580_y430-790_z200-390_gt.h5'
+  # paths to the validation datasets
+  val_path:
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00004_crop_x420_y620_gt.h5'
+    - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00030_s00_uint8_gt_cropped_final.h5'
+  # how many subprocesses to use for data loading
+  num_workers: 8
+  # data augmentation
+  transformer:
+    train:
+      raw:
+        - name: Standardize
+        - name: RandomFlip
+        - name: RandomRotate90
+        - name: RandomRotate
+          # rotate only in ZY plane due to anisotropy
+          axes: [[2, 1]]
+          angle_spectrum: 15
+          mode: reflect
+        - name: AdditiveGaussianNoise
+          execution_probability: 0.25
+        - name: AdditivePoissonNoise
+          execution_probability: 0.25
+        - name: ToTensor
+          expand_dims: true
+      label:
+        - name: RandomFlip
+        - name: RandomRotate90
+        - name: RandomRotate
+          # rotate only in ZY plane due to anisotropy
+          axes: [[2, 1]]
+          angle_spectrum: 15
+          mode: reflect
+        - name: StandardLabelToBoundary
+          # append original ground truth labels to the last channel (to be able to compute the eval metric)
+          append_label: true
+          # guassian blur and threshold the boundary map in order to help with overfitting
+          blur: true
+          # stddev of Gaussian kernel
+          sigma: 1.0
+        - name: ToTensor
+          expand_dims: false
+    test:
+      raw:
+        - name: Standardize
+        - name: ToTensor
+          expand_dims: true
+      label:
+        - name: StandardLabelToBoundary
+          append_label: true
+          blur: true
+          sigma: 1.0
+        - name: ToTensor
+          expand_dims: false
