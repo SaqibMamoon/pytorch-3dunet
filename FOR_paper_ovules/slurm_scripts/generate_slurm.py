@@ -37,7 +37,7 @@ def _get_config_paths(root_dir):
 
 
 if __name__ == "__main__":
-    for i, config_file in enumerate(_get_config_paths('/home/adrian/workspace/for-pytorch-3dunet/FOR_paper_ovules')):
+    for i, config_file in enumerate(_get_config_paths('/home/adrian/workspace/for-pytorch-3dunet/FOR_paper_ovules/final')):
         print('Processing', config_file)
         config = yaml.load(open(config_file, 'r'))
         checkpoint_dir = config['trainer']['checkpoint_dir']
