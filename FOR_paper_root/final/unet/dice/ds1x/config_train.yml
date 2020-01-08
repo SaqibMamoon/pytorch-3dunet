@@ -44,7 +44,7 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_root/augmentation/unet_ds1x_dice_gcr_noise'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_root/final/unet/dice/ds1x/config_train.yml'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
@@ -54,7 +54,8 @@ trainer:
   # max number of epochs
   epochs: 1000
   # max number of iterations
-  iters: 80000
+  iters: 150000
+# Configure training and validation loaders
 loaders:
   # how many subprocesses to use for data loading
   num_workers: 8
@@ -119,6 +120,8 @@ loaders:
           axes: [[2, 1]]
           angle_spectrum: 15
           mode: reflect
+        - name: ElasticDeformation
+          spline_order: 3
         - name: AdditiveGaussianNoise
           execution_probability: 0.25
         - name: AdditivePoissonNoise
@@ -133,6 +136,8 @@ loaders:
           axes: [[2, 1]]
           angle_spectrum: 15
           mode: reflect
+        - name: ElasticDeformation
+          spline_order: 0
         - name: StandardLabelToBoundary
           # append original ground truth labels to the last channel (to be able to compute the eval metric)
           append_label: true
