@@ -1,15 +1,15 @@
 # use a fixed random seed to guarantee that when you run the code twice you will get the same outcome
 manual_seed: 0
 model:
-  name: UNet3D
+  name: ResidualUNet3D
   # number of input channels to the model
   in_channels: 1
   # number of output channels
   out_channels: 1
   # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
-  layer_order: cgr
+  layer_order: gcr
   # initial number of feature maps
-  f_maps: 32
+  f_maps: [32, 64, 128, 256]
   # number of groups in the groupnorm
   num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
@@ -46,7 +46,7 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/normalization/unet_ds2x_bce_cgr'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/final/resunet/bce/ds2x/config_train.yml'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
@@ -56,7 +56,8 @@ trainer:
   # max number of epochs
   epochs: 1000
   # max number of iterations
-  iters: 80000
+  iters: 150000
+# Configure training and validation loaders
 loaders:
   # how many subprocesses to use for data loading
   num_workers: 8
@@ -112,7 +113,7 @@ loaders:
     slice_builder:
       name: FilterSliceBuilder
       # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-      patch_shape: [80, 170, 170]
+      patch_shape: [80, 144, 144]
       # train stride between patches
       stride_shape: [20, 40, 40]
       # minimum volume of the labels in the patch
@@ -130,6 +131,12 @@ loaders:
           axes: [[2, 1]]
           angle_spectrum: 15
           mode: reflect
+        - name: ElasticDeformation
+          spline_order: 3
+        - name: AdditiveGaussianNoise
+          execution_probability: 0.25
+        - name: AdditivePoissonNoise
+          execution_probability: 0.25
         - name: ToTensor
           expand_dims: true
       label:
@@ -140,6 +147,8 @@ loaders:
           axes: [[2, 1]]
           angle_spectrum: 15
           mode: reflect
+        - name: ElasticDeformation
+          spline_order: 0
         - name: StandardLabelToBoundary
           # append original ground truth labels to the last channel (to be able to compute the eval metric)
           append_label: true
@@ -161,7 +170,7 @@ loaders:
     slice_builder:
       name: FilterSliceBuilder
       # train patch size given to the network (adapt to fit in your GPU mem, generally the bigger patch the better)
-      patch_shape: [80, 170, 170]
+      patch_shape: [80, 144, 144]
       # train stride between patches
       stride_shape: [20, 40, 40]
       # minimum volume of the labels in the patch
