@@ -1,0 +1,52 @@
+# path to the checkpoint file containing the model
+model_path: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_root/dice/unet_ds1x_dice_gcr/best_checkpoint.pytorch'
+# model configuration
+model:
+  name: UNet3D
+  # number of input channels to the model
+  in_channels: 1
+  # number of output channels
+  out_channels: 1
+  # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
+  layer_order: gcr
+  # initial number of feature maps
+  f_maps: 32
+  # number of groups in the groupnorm
+  num_groups: 8
+  # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
+  final_sigmoid: true
+# predictor configuration
+predictor:
+  # standard in memory predictor
+  name: 'StandardPredictor'
+# specify the test datasets
+loaders:
+  batch_size: 1
+  # mirror pad the raw data for sharper prediction near the boundaries of the volume
+  mirror_padding: true
+  pad_width: 20
+  # path to the raw data within the H5
+  raw_internal_path: raw
+  # how many subprocesses to use for data loading
+  num_workers: 8
+  # test loaders configuration
+  test:
+    # paths to the test datasets
+    file_paths:
+      - '/g/kreshuk/wolny/Datasets/MovieSPIM/Test/unet_ds1x_dice_gcr/Marvelous_t00006_crop_x420_y620_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MovieSPIM/Test/unet_ds1x_dice_gcr/Marvelous_t00045_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MovieSPIM/Test/unet_ds1x_dice_gcr/Beautiful_T00010_crop_x40-1630_y520-970_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MovieSPIM/Test/unet_ds1x_dice_gcr/Beautiful_T00020_crop_x40-1630_y520-970_gt.h5'
+
+    # SliceBuilder configuration, i.e. how to iterate over the input volum
+    slice_builder:
+      # SliceBuilder class
+      name: SliceBuilder
+      patch_shape: [80, 170, 170]
+      stride_shape: [40, 85, 85]
+
+    transformer:
+        raw:
+          - name: Standardize
+          - name: ToTensor
+            expand_dims: true
