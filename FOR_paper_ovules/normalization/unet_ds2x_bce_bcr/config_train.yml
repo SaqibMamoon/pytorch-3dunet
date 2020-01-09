@@ -10,8 +10,6 @@ model:
   layer_order: bcr
   # initial number of feature maps
   f_maps: 32
-  # number of groups in the groupnorm
-  num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
   final_sigmoid: true
 # loss function to be used during training
@@ -58,6 +56,8 @@ trainer:
   # max number of iterations
   iters: 80000
 loaders:
+  # increase the batch size for bachnorm
+  batch_size: 4
   # how many subprocesses to use for data loading
   num_workers: 8
   # path to the raw data within the H5

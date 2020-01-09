@@ -1,0 +1,53 @@
+# path to the checkpoint file containing the model
+model_path: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/normalization/unet_ds2x_bce_bcr/best_checkpoint.pytorch'
+# model configuration
+model:
+  name: UNet3D
+  # number of input channels to the model
+  in_channels: 1
+  # number of output channels
+  out_channels: 1
+  # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
+  layer_order: bcr
+  # initial number of feature maps
+  f_maps: 32
+  # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
+  final_sigmoid: true
+# predictor configuration
+predictor:
+  # standard in memory predictor
+  name: 'StandardPredictor'
+# specify the test datasets
+loaders:
+  batch_size: 4
+  # mirror pad the raw data for sharper prediction near the boundaries of the volume
+  mirror_padding: true
+  pad_width: 20
+  # path to the raw data within the H5
+  raw_internal_path: raw
+  # how many subprocesses to use for data loading
+  num_workers: 8
+  # test loaders configuration
+  test:
+    # paths to the test datasets
+    file_paths:
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_294_final_crop_ds2.h5'
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_435_final_crop_ds2.h5'
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_441_final_crop_ds2.h5'
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_511_final_crop_ds2.h5'
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_522_final_crop_ds2.h5'
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_590_final_crop_ds2.h5'
+      - '/g/kreshuk/wolny/Datasets/Ovules/test/Lorenzo/N_593_final_crop_ds2.h5'
+
+    # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
+    slice_builder:
+      # SliceBuilder class
+      name: SliceBuilder
+     patch_shape: [80, 100, 100]
+      stride_shape: [40, 50, 50]
+
+    transformer:
+        raw:
+          - name: Standardize
+          - name: ToTensor
+            expand_dims: true
