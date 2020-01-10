@@ -33,10 +33,10 @@ loaders:
   test:
     # paths to the test datasets
     file_paths:
-      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Marvelous_t00006_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Marvelous_t00045_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Beautiful_T00010_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Beautiful_T00020_crop_x40-1630_y520-970_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Movie1_t00006_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Movie1_t00045_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Movie2_T00010_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/MuviSPIM/unet_ds1x_bce_cgr/Movie2_T00020_crop_gt.h5'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volum
     slice_builder:

@@ -68,36 +68,35 @@ loaders:
   train:
     # paths to the training datasets
     file_paths:
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00003_s00_uint8_gt_cropped_final.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00009_s00_uint8_gt_cropped_final.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00025_s00_uint8_gt_cropped_final.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00035_s00_uint8_gt_cropped_final.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00040_s00_uint8_gt_cropped_final.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00049_s00_uint8_gt_cropped_final.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00000_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00002_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00006_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00008_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00010_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00012_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00014_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00016_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00018_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00020_crop_x420_y620_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00000_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00002_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00003_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00008_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00009_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00010_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00012_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00014_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00016_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00018_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00020_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00025_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00035_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00040_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00049_crop_gt.h5'
       # Beautiful
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00000_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00002_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00004_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00006_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00008_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00012_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00014_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00016_crop_x40-1630_y520-970_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Beautiful/GT_Amaya/Beautiful_T00018_crop_x40-1630_y520-970_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00000_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00002_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00004_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00006_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00008_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00012_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00014_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00016_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie2_T00018_crop_gt.h5'
       # Nice
-      - '/g/kreshuk/wolny/Datasets/Nice/GT_Amaya/Nice_T00000_crop_x410-1580_y430-790_z200-390_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Nice/GT_Amaya/Nice_T00002_crop_x410-1580_y430-790_z200-390_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Nice/GT_Amaya/Nice_T00004_crop_x410-1580_y430-790_z200-390_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie3_T00000_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie3_T00002_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie3_T00004_crop_gt.h5'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
@@ -149,8 +148,8 @@ loaders:
   val:
     # paths to the val datasets
     file_paths:
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Amaya/Marvelous_t00004_crop_x420_y620_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/Marvelous/GT_Marion/t00030_s00_uint8_gt_cropped_final.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00004_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00030_crop_gt.h5'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
