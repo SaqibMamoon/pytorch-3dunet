@@ -46,7 +46,7 @@ trainer:
   # path to the checkpoint directory
   checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/final/resunet/dice/ds2x'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
-  resume: null
+  resume: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/final/resunet/dice/ds2x/last_checkpoint.pytorch'
   # how many iterations between validations
   validate_after_iters: 500
   # how many iterations between tensorboard logging
