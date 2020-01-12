@@ -153,8 +153,8 @@ loaders:
   val:
     # paths to the val datasets
     file_paths:
-      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00004_crop_gt.h5'
-      - '/g/kreshuk/wolny/Datasets/LateralRoot/Train/Movie1_t00030_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Val/Movie1_t00004_crop_gt.h5'
+      - '/g/kreshuk/wolny/Datasets/LateralRoot/Val/Movie1_t00030_crop_gt.h5'
 
     # SliceBuilder configuration, i.e. how to iterate over the input volume patch-by-patch
     slice_builder:
