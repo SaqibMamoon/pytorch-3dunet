@@ -2,7 +2,7 @@
 model_path: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/resunet/resunet_ds2x_dice_gcr/best_checkpoint.pytorch'
 # model configuration
 model:
-  name: UNet3D
+  name: ResidualUNet3D
   # number of input channels to the model
   in_channels: 1
   # number of output channels
@@ -10,7 +10,9 @@ model:
   # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
   layer_order: gcr
   # initial number of feature maps
-  f_maps: 32
+  f_maps: [32, 64, 128, 256]
+  # number of groups in the groupnorm
+  num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
   final_sigmoid: true
 # predictor configuration
