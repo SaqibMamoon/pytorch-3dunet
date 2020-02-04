@@ -50,7 +50,7 @@ trainer:
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
-  validate_after_iters: 1000
+  validate_after_iters: 2000
   # how many iterations between tensorboard logging
   log_after_iters: 100
   # max number of epochs
@@ -119,7 +119,7 @@ loaders:
       # train stride between patches
       stride_shape: [20, 40, 40]
       # minimum volume of the labels in the patch
-      threshold: 0.9
+      threshold: 0.99
       # probability of accepting patches which do not fulfil the threshold criterion
       slack_acceptance: 0.01
 
@@ -176,9 +176,9 @@ loaders:
       # train stride between patches
       stride_shape: [20, 40, 40]
       # minimum volume of the labels in the patch
-      threshold: 0.9
+      threshold: 1.0
       # probability of accepting patches which do not fulfil the threshold criterion
-      slack_acceptance: 0.01
+      slack_acceptance: 0.0
 
     # data augmentation
     transformer:
