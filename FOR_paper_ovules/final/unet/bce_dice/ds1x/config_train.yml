@@ -176,7 +176,7 @@ loaders:
       # train stride between patches
       stride_shape: [80, 170, 170]
       # minimum volume of the labels in the patch
-      threshold: 1.0
+      threshold: 0.9
       # probability of accepting patches which do not fulfil the threshold criterion
       slack_acceptance: 0.0
 
