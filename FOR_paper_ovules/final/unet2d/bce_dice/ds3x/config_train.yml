@@ -122,6 +122,7 @@ loaders:
       threshold: 0.5
       # probability of accepting patches which do not fulfil the threshold criterion
       slack_acceptance: 0.01
+      skip_shape_check: true
 
     transformer:
       raw:
@@ -179,6 +180,7 @@ loaders:
       threshold: 0.5
       # probability of accepting patches which do not fulfil the threshold criterion
       slack_acceptance: 0.0
+      skip_shape_check: true
 
     # data augmentation
     transformer:
