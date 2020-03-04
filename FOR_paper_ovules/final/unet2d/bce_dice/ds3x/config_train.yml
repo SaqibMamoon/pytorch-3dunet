@@ -42,7 +42,7 @@ lr_scheduler:
   # make sure to use the 'min' mode cause lower AdaptedRandError is better
   mode: min
   factor: 0.5
-  patience: 30
+  patience: 20
 trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
@@ -51,7 +51,7 @@ trainer:
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
-  validate_after_iters: 250
+  validate_after_iters: 500
   # how many iterations between tensorboard logging
   log_after_iters: 100
   # max number of epochs
@@ -60,7 +60,7 @@ trainer:
   iters: 150000
 # Configure training and validation loaders
 loaders:
-  batch_size: 64
+  batch_size: 32
   # how many subprocesses to use for data loading
   num_workers: 8
   # path to the raw data within the H5
