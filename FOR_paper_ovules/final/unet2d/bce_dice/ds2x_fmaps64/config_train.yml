@@ -9,7 +9,7 @@ model:
   # determines the order of operators in a single layer (crg - Conv3d+ReLU+GroupNorm)
   layer_order: gcr
   # initial number of feature maps
-  f_maps: 32
+  f_maps: 64
   # number of groups in the groupnorm
   num_groups: 8
   # apply element-wise nn.Sigmoid after the final 1x1x1 convolution, otherwise apply nn.Softmax
@@ -47,7 +47,7 @@ trainer:
   # model with lower eval score is considered better
   eval_score_higher_is_better: False
   # path to the checkpoint directory
-  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/final/unet2d/bce_dice/ds2x'
+  checkpoint_dir: '/g/kreshuk/wolny/workspace/for-pytorch-3dunet/FOR_paper_ovules/final/unet2d/bce_dice/ds2x_fmaps64'
   # path to latest checkpoint; if provided the training will be resumed from that checkpoint
   resume: null
   # how many iterations between validations
